@@ -15,12 +15,15 @@ let simulationFactory = function()
 	
 	for(let i = 0; i < numPlayers; ++i)
 	{
+		let currentGroup = Math.floor(Math.random() * numServers);
 		players[i] = { 
 			x: Math.random(),
 			y: Math.random(),
 			direction: Math.random() * 2 * Math.PI,
 			speed: Math.random(),
-			group: Math.floor(Math.random() * numServers)
+			currentGroup: currentGroup,
+			desiredGroup: currentGroup,
+			transferTimer: 0
 		};
 	}
 	
@@ -36,7 +39,7 @@ let simulationFactory = function()
 	const maxSpeed = 0.01;
 	const maxTurnRate = 0.25*Math.PI;
 	
-	let transfersLastStep = 0;
+	let transfers = 0;
 	
 	function assignPlayerGroup(player)
 	{
@@ -55,10 +58,20 @@ let simulationFactory = function()
 				closestServer = j;
 			}
 		}
-		if(closestServer != player.group)
+		if(closestServer != player.currentGroup && closestServer != player.desiredGroup)
 		{
-			player.group = closestServer;
-			transfersLastStep++;
+			player.desiredGroup = closestServer;
+			player.transferTimer = 5;
+			transfers++;
+		}
+		if(player.transferTimer != 0)
+		{
+			player.transferTimer--;
+			if(player.transferTimer == 0)
+			{
+				player.currentGroup = player.desiredGroup;
+				transfers--;
+			}
 		}
 		serverInfos[player.group].count++;
 	}
@@ -105,7 +118,6 @@ let simulationFactory = function()
 			assignPlayerGroups();
 			adjustServerCentroidsStep();
 		}
-		transfersLastStep = 0;
 		assignPlayerGroups();
 	};
 	
@@ -136,7 +148,6 @@ let simulationFactory = function()
 
 	return {
 		step: function() {
-			transfersLastStep = 0;
 			for(let i = 0; i < numPlayers; ++i)
 			{
 				players[i].speed = Math.random() * maxSpeed;
@@ -198,7 +209,7 @@ let simulationFactory = function()
 			{
 				data.innerHTML += "server " + i + ": " + serverInfos[i].count + "<br/>";
 			}
-			data.innerHTML += "transfers: " + transfersLastStep;
+			data.innerHTML += "transfers: " + transfers;
 		},
 	};
 };
