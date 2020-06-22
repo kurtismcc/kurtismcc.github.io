@@ -1,4 +1,4 @@
-import { Delaunay } from 'https://unpkg.com/d3-delaunay?module';
+import { Delaunay, Voronoi } from 'https://unpkg.com/d3-delaunay?module';
 
 let drawable = null;
 let ctx = null;
