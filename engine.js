@@ -212,7 +212,7 @@ window.onload = function()
 	window.setInterval(function() {
 		iteration++;
 		simulation.step();
-		if(iteration == 10)
+		if(iteration == 100)
 		{
 			simulation.adjust();
 			iteration = 0;
