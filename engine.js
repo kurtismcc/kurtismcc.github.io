@@ -1,3 +1,5 @@
+import { Delaunay, Voronoi } from 'https://unpkg.com/d3-delaunay';
+
 let drawable = null;
 let ctx = null;
 let data = null;
