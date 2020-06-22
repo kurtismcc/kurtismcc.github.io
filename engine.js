@@ -159,8 +159,8 @@ let simulationFactory = function()
 			updateBoundaries();
 		},
 		draw: function() {
-			ctx.fillStyle = "#ffffff";
 			ctx.clearRect(0, 0, drawable.width, drawable.height);
+			ctx.fillStyle = "#d8d8d8";
 			voronoi.render(ctx);
 			
 			let colors = new Array(numServers);
