@@ -1,5 +1,3 @@
-import { Delaunay, Voronoi } from "index.js";
-
 let drawable = null;
 let ctx = null;
 let data = null;
