@@ -60,10 +60,15 @@ let simulationFactory = function()
 			player.group = closestServer;
 			transfersLastStep++;
 		}
+		serverInfos[player.group].count++;
 	}
 
 	function assignPlayerGroups()
 	{
+		for(let i = 0; i < numServers; ++i)
+		{
+			serverInfos[i].count = 0;
+		}
 		for(let i = 0; i < numPlayers; ++i)
 		{
 			assignPlayerGroup(players[i]);
@@ -151,8 +156,8 @@ let simulationFactory = function()
 					let ratio = (players[i].y - (1.0 - pushRatio)) / pushRatio;
 					players[i].y -= ratio * ratio * maxSpeed * 0.5;
 				}
-				assignPlayerGroup(players[i]);
 			}
+			assignPlayerGroups();
 		},
 		adjust: function() {
 			adjustServerCentroids(10);
