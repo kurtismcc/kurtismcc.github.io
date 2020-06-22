@@ -75,6 +75,7 @@ let simulationFactory = function()
 			// reset transfer
 			player.desiredGroup = player.currentGroup;
 			player.transferTimer = 0;
+			transfers--;
 		}
 		if(player.transferTimer != 0)
 		{
