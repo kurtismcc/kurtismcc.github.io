@@ -161,7 +161,9 @@ let simulationFactory = function()
 		draw: function() {
 			ctx.clearRect(0, 0, drawable.width, drawable.height);
 			ctx.strokeStyle = "#d8d8d8";
+			ctx.beginPath();
 			voronoi.render(ctx);
+			ctx.stroke();
 			
 			let colors = new Array(numServers);
 			let colorStep = 360 / numServers;
