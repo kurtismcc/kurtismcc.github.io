@@ -40,8 +40,6 @@ let simulationFactory = function()
 	const maxSpeed = 0.01;
 	const maxTurnRate = 0.25*Math.PI;
 	
-	let transfers = 0;
-	
 	function assignPlayerGroup(player)
 	{
 		let currentDeltaX = player.x - serverInfos[0].centroidX;
@@ -66,7 +64,6 @@ let simulationFactory = function()
 				player.desiredGroup = closestServer;
 				if(player.transferTimer == 0)
 				{
-					transfers++;
 					player.numTransfers++;
 				}
 				player.transferTimer = 5;
@@ -75,7 +72,6 @@ let simulationFactory = function()
 			// reset transfer
 			player.desiredGroup = player.currentGroup;
 			player.transferTimer = 0;
-			transfers--;
 		}
 		if(player.transferTimer != 0)
 		{
@@ -83,7 +79,6 @@ let simulationFactory = function()
 			if(player.transferTimer == 0)
 			{
 				player.currentGroup = player.desiredGroup;
-				transfers--;
 			}
 		}
 		serverInfos[player.currentGroup].count++;
@@ -204,6 +199,7 @@ let simulationFactory = function()
 			voronoi.render(ctx);
 			ctx.stroke();
 			
+			let transfers = 0;
 			let colors = new Array(numServers);
 			let colorStep = 360 / numServers;
 			for(let i = 0; i < numServers; ++i)
@@ -215,6 +211,8 @@ let simulationFactory = function()
 			{
 				ctx.fillStyle = colors[players[i].currentGroup];
 				ctx.fillRect(players[i].x * drawable.width, players[i].y * drawable.height, 2, 2);
+				if(players[i].currentGroup != players[i].desiredGroup)
+					transfers++;
 			}
 			
 			data.innerHTML = "";
