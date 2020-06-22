@@ -160,7 +160,7 @@ let simulationFactory = function()
 		},
 		draw: function() {
 			ctx.clearRect(0, 0, drawable.width, drawable.height);
-			ctx.fillStyle = "#d8d8d8";
+			ctx.strokeStyle = "#d8d8d8";
 			voronoi.render(ctx);
 			
 			let colors = new Array(numServers);
