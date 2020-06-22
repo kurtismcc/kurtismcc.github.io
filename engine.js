@@ -107,11 +107,11 @@ let simulationFactory = function()
 		let pointData = new Array(numServers*2);
 		for(let i = 0; i < numServers; ++i)
 		{
-			pointData[i*2] = serverInfos[i].centroidX * canvas.width;
-			pointData[i*2+1] = serverInfos[i].centroidY * canvas.height;
+			pointData[i*2] = serverInfos[i].centroidX * drawable.width;
+			pointData[i*2+1] = serverInfos[i].centroidY * drawable.height;
 		}
 		//let delaunay = new Delaunay(pointData);
-		//voronoi = delaunay.voronoi(0, 0, canvas.width, canvas.height);
+		//voronoi = delaunay.voronoi(0, 0, drawable.width, drawable.height);
 	}
 
 	adjustServerCentroids(100);
