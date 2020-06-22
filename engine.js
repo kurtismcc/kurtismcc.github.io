@@ -1,3 +1,5 @@
+import { Delaunay } from 'd3-delaunay';
+
 let drawable = null;
 let ctx = null;
 let data = null;
