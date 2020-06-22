@@ -112,10 +112,20 @@ let simulationFactory = function()
 	function updateBoundaries()
 	{
 		let pointData = new Array(numServers*2);
+		let count = 0;
 		for(let i = 0; i < numServers; ++i)
 		{
-			pointData[i*2] = serverInfos[i].centroidX * drawable.width;
-			pointData[i*2+1] = serverInfos[i].centroidY * drawable.height;
+			if(serverInfos[i].count == 0)
+				continue;
+			pointData[count*2] = serverInfos[i].centroidX * drawable.width;
+			pointData[count*2+1] = serverInfos[i].centroidY * drawable.height;
+			++count;
+		}
+		while(count < numServers)
+		{
+			pointData.pop();
+			pointData.pop();
+			++count;
 		}
 		let delaunay = new Delaunay(pointData);
 		voronoi = delaunay.voronoi([0, 0, drawable.width, drawable.height]);
@@ -165,10 +175,10 @@ let simulationFactory = function()
 		},
 		draw: function() {
 			ctx.clearRect(0, 0, drawable.width, drawable.height);
-			//ctx.strokeStyle = "#d8d8d8";
-			//ctx.beginPath();
-			//voronoi.render(ctx);
-			//ctx.stroke();
+			ctx.strokeStyle = "#d8d8d8";
+			ctx.beginPath();
+			voronoi.render(ctx);
+			ctx.stroke();
 			
 			let colors = new Array(numServers);
 			let colorStep = 360 / numServers;
