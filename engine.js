@@ -23,7 +23,8 @@ let simulationFactory = function()
 			speed: Math.random(),
 			currentGroup: currentGroup,
 			desiredGroup: currentGroup,
-			transferTimer: 0
+			transferTimer: 0,
+			numTransfers: 0
 		};
 	}
 	
@@ -62,6 +63,7 @@ let simulationFactory = function()
 		{
 			player.desiredGroup = closestServer;
 			player.transferTimer = 5;
+			player.numTransfers++;
 			transfers++;
 		}
 		if(player.transferTimer != 0)
@@ -73,7 +75,7 @@ let simulationFactory = function()
 				transfers--;
 			}
 		}
-		serverInfos[player.group].count++;
+		serverInfos[player.currentGroup].count++;
 	}
 
 	function assignPlayerGroups()
@@ -99,9 +101,9 @@ let simulationFactory = function()
 		
 		for(let i = 0; i < numPlayers; ++i)
 		{
-			serverInfos[players[i].group].centroidX += players[i].x;
-			serverInfos[players[i].group].centroidY += players[i].y;
-			serverInfos[players[i].group].count++;
+			serverInfos[players[i].currentGroup].centroidX += players[i].x;
+			serverInfos[players[i].currentGroup].centroidY += players[i].y;
+			serverInfos[players[i].currentGroup].count++;
 		}
 		
 		for(let i = 0; i < numServers; ++i)
@@ -200,7 +202,7 @@ let simulationFactory = function()
 			
 			for(let i = 0; i < numPlayers; ++i)
 			{
-				ctx.fillStyle = colors[players[i].group];
+				ctx.fillStyle = colors[players[i].currentGroup];
 				ctx.fillRect(players[i].x * drawable.width, players[i].y * drawable.height, 2, 2);
 			}
 			
