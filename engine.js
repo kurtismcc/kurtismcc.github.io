@@ -112,8 +112,8 @@ let simulationFactory = function()
 			pointData[i*2] = serverInfos[i].centroidX * canvas.width;
 			pointData[i*2+1] = serverInfos[i].centroidY * canvas.height;
 		}
-		let delaunay = new Delaunay(pointData);
-		voronoi = delaunay.voronoi(0, 0, canvas.width, canvas.height);
+		//let delaunay = new Delaunay(pointData);
+		//voronoi = delaunay.voronoi(0, 0, canvas.width, canvas.height);
 	}
 
 	adjustServerCentroids(100);
@@ -161,7 +161,7 @@ let simulationFactory = function()
 		draw: function() {
 			ctx.fillStyle = "#ffffff";
 			ctx.clearRect(0, 0, drawable.width, drawable.height);
-			voronoi.render();
+			//voronoi.render();
 			
 			let colors = new Array(numServers);
 			let colorStep = 360 / numServers;

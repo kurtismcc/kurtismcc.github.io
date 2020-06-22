@@ -1,7 +1,6 @@
 <html>
 <head>
-  <script type="module" src="d3-delaunay/src/index.js"></script>
-  <script type="module" src="engine.js"></script>
+  <script src="engine.js"></script>
   <title>Test K-Mean Clustering</title>
 </head>
 <body>
