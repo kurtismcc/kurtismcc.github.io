@@ -59,12 +59,22 @@ let simulationFactory = function()
 				closestServer = j;
 			}
 		}
-		if(closestServer != player.currentGroup && closestServer != player.desiredGroup)
+		if(closestServer != player.currentGroup)
 		{
-			player.desiredGroup = closestServer;
-			player.transferTimer = 5;
-			player.numTransfers++;
-			transfers++;
+			if(closestServer != player.desiredGroup)
+			{
+				player.desiredGroup = closestServer;
+				if(player.transferTimer == 0)
+				{
+					transfers++;
+					player.numTransfers++;
+				}
+				player.transferTimer = 5;
+			}
+		} else {
+			// reset transfer
+			player.desiredGroup = player.currentGroup;
+			player.transferTimer = 0;
 		}
 		if(player.transferTimer != 0)
 		{
